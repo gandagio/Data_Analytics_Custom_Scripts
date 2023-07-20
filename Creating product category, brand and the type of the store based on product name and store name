@@ -1,0 +1,399 @@
+import pandas as pd
+
+def cat_brand_strtype():
+
+    #Making category column
+
+    df = pd.read_csv(r#Paste file path here)
+    product_name = df['product_name'].apply(str.lower)
+
+    Baby_Wipe = ['Tisu','Tissue','tisue','tissue','wipe','Wipe','wipes','Wipes']
+    Baby_Oil = ['Oil','oil','Minyak','minyak','Minyak telon','minyak telon','telon','Telon']
+    Baby_Cream_Lotion = ['Cream','cream','Krim','krim','Lotion','lotion','Losion','losion']
+    Baby_Bathing_Accessories = ['Cleanser','cleanser','Wash','wash','Detergent','detergent','Bubble bath','bubble bath','Shower gel','shower gel','Towels','towels','Mat','mat','Hair','hair','Laundry','laundry','Bath tub','bath tub','Body Milk','body milk']
+    Baby_Toothbrush_Toothpaste = ['Toothbrush','toothbrush','Toothpaste','toothpaste','Pasta gigi','pasta gigi','Sikat','sikat','Tooth Brush','tooth brush','Sikat gigi','sikat gigi']
+    Baby_Soap_Shampoo = ['Soap','soap','Shampoo','shampoo','Shampo','shampo','Sabun','sabun','Sampo','sampo']
+    Baby_Powder = ['Powder','powder','Bedak','bedak','Talc','talc','Bubuk','bubuk','Talek','talek']
+    Baby_Feeding_Set = ['Bottle','bottle','Botol','botol','Pacifier','pacifier','Food','food','Spoon','spoon','Breastmilk','breastmilk','Nipple','nipple','Dot','dot']
+    Baby_Parfume_Cologne = ['Perfume','perfume','Parfum','parfum','Cologne','cologne','Toilette','toilette','Mist','mist','Colonge','colonge']
+    Baby_Health_Care = ['Cough','cough','Fever','fever','Nasal','nasal','Sanitizer','sanitizer','Sleep','sleep','Tidur','tidur','Immun','immun','Imun','imun','Cold','cold','Repellent','repellent','Nose','nose','Hidung','hidung','Balsam','balsam','Balsem','balsem','Cotton','cotton','Vitamin','vitamin']
+    Gift_Package = ['Gift','gift','Hamper','hamper','Paket','paket']
+
+    category = []
+    for x in product_name:
+        if any(ele in x for ele in Baby_Wipe) == True :
+            category.append('Baby Wipe')
+        elif any(ele in x for ele in Baby_Oil) == True :
+            category.append('Baby Oil')
+        elif any(ele in x for ele in Baby_Cream_Lotion) == True :
+            category.append('Baby Cream & Lotion')
+        elif any(ele in x for ele in Baby_Bathing_Accessories) == True :
+            category.append('Baby Bathing Accessories')
+        elif any(ele in x for ele in Baby_Toothbrush_Toothpaste) == True :
+            category.append('Baby Toothbrush & Toothpaste')
+        elif any(ele in x for ele in Baby_Soap_Shampoo) == True :
+            category.append('Baby Soap & Shampoo')
+        elif any(ele in x for ele in Baby_Powder) == True :
+            category.append('Baby Powder')
+        elif any(ele in x for ele in Baby_Feeding_Set) == True :
+            category.append('Baby Feeding Set')
+        elif any(ele in x for ele in Baby_Parfume_Cologne) == True :
+            category.append('Baby Parfume Cologne')
+        elif any(ele in x for ele in Baby_Health_Care) == True :
+            category.append('Baby Health Care')
+        elif any(ele in x for ele in Gift_Package) == True :
+            category.append('Gift Package')
+        else:
+            category.append('Mom & Baby')
+
+    df['Category'] = category
+
+    #Making brand column
+
+    APRILIA = ['aprilia']
+    AVEENO = ['aveeno']
+    BB = ['b&b']
+    BABEE_BABY = ['babeebabyshop official shop','babeebaby','babeebabyshop','babeebabyshop official']
+    BABY_HAPPY = ['baby happy','babyhappy']
+    BABY_SAFE = ['baby safe','babysafe']
+    BAMBI = ['bambi']
+    BELLI_TO_BABY = ['bellito baby','belli tobaby','bellitobaby','belli to baby']
+    BONNELS = ['bonnels']
+    BOTANINA = ['botanina']
+    BUDS = ['buds']
+    BYE_BYE_FEVER = ['byebye fever','bye byefever','byebyefever','bye bye fever']
+    CAHAYA_NATURALS = ['cahayanaturals','cahayanatural','cahaya natural','cahaya naturals']
+    CALADINE = ['calandine','caladine']
+    CALMY = ['calmy']
+    CAPLANG = ['cap lang official shop','caplang','cap lang','caplang official shop','cap lang official','caplang official']
+    CASA_DI_OLIVIA = ['casa di olivia']
+    CERAVE = ['cerave']
+    CESSA = ['cessa']
+    CETAPHIL = ['cetaphil']
+    CHIO = ['chio']
+    COLGATE = ['colgate']
+    CUSSONS = ['cusson','cussons','carex','cusssons','cussions','cusions','cusons','cuson','sensicare','original source','imperial leather']
+    DACCO = ['dacco']
+    DETTOL = ['dettol']
+    DOODLE = ['doddle','doodle']
+    DOVE = ['dove']
+    ESKULIN = ['eskulin']
+    FORA = ['fora']
+    FORMULA = ['formula']
+    GALENIUM = ['galenium','galanium']
+    GENTLE_BABY = ['gentlebaby shop','gentle baby','gentlebaby']
+    GENTLY = ['gently']
+    GODREJ = ['godrej-id','godrej']
+    HAPPY = ['happy']
+    HAPPY_NAPPY = ['happy nappy','happynappy']
+    HEROCYN = ['herocyn']
+    HUKI = ['huki']
+    JOHNSONS = ["johnson's","johnson&johnson","johnson","johnsons","johnson & johnson","j&j","jhonson","Jhonson's"]
+    KINO = ['kino']
+    KLAPU = ['klapu']
+    KODOMO = ['kodomo']
+    KONICARE = ['konicare']
+    KUNTOEM = ['kuntoem']
+    LACTACYD = ['lactacyd']
+    LAKOE = ['lakoe','lakoe indonesia']
+    LUSTY_BUNNY = ['lusty bunny','lustybunny']
+    MAHARATI = ['maharati']
+    MAMA_MATTEO = ['mama matteo','mamamatteo','mamamateo','mama mateo']
+    MAMAS_CHOICE = ["mama's choice","mama'schoice","mamas choice"]
+    MAMAMIA = ['mamamia']
+    MAMY_POKO = ['mamypoko','mamy poko']
+    MASTER = ['master']
+    MASTER_KIDS = ['masterkids','master kids']
+    MEDISOFT = ['medisoft']
+    MERRIES = ['merries']
+    MITU = ['mitu']
+    MOMAMI = ['momami']
+    MUSIM = ['musim']
+    MUSTELA = ['mustela']
+    MY_BABY = ['my baby indonesia','mybaby','my baby','mybaby indonesia']
+    OlAIF = ['olaif']
+    OLBAS = ['olbas']
+    ORALB = ['oral b','oralb','oral-b']
+    PASEO = ['paseo']
+    PEPSODENT = ['pepsodent']
+    PHILIPS_AVENT = ['philipsavent','philips avent','avent','philips','philip']
+    PIGEON = ['pigeon']
+    PURE = ['pure']
+    PURE_BABY = ['purebaby','pure baby']
+    SANOSAN = ['sanosan']
+    SEBAMED = ['sebamed']
+    SEJAK = ['sejak']
+    SIOMAMA = ['siomama']
+    SIPOPO = ['sipopo']
+    SLEEK = ['sleek']
+    SUGAR_BABY = ['sugarbaby','sugar baby','sugarbaby official shop','sugar baby official shop']
+    SWEETY = ['sweety']
+    TEMPOSTORE = ['tempostore']
+    TOLAK_ANGIN = ['tolakangin','tolak angin']
+    TRESNOJOYO = ['tresnojoyo']
+    TROPEEBEBE = ['tropee bebe','tropeebebe','tropeebebeid','tropeebebe id']
+    ULTRACYN = ['ultracyn']
+    UNICHARM = ['unicharm Official Shop','unicharm']
+    UNILEVER = ['unilever','lifebuoy','lifebouy']
+    VASELINE = ['vaseline']
+    WATSON = ['watson']
+    WETKINS = ['wetkins']
+    WINGS = ['wingsofficial','nuvo','wings']
+    ZWITSAL = ['zwitsal']
+    BONNIE_BOX = ['bonnie Box']
+    NAVILA = ['navila']
+
+    brand = []
+    for x in product_name:
+        if any(ele in x for ele in APRILIA) == True :
+            brand.append('APRILIA')
+        elif any(ele in x for ele in AVEENO) == True :
+            brand.append('AVEENO')
+        elif any(ele in x for ele in BB) == True :
+            brand.append('B&B')
+        elif any(ele in x for ele in BABEE_BABY) == True :
+            brand.append('BABEE BABY')
+        elif any(ele in x for ele in BABY_HAPPY) == True :
+            brand.append('BABY HAPPY')
+        elif any(ele in x for ele in BABY_SAFE) == True :
+            brand.append('BABY SAFE')
+        elif any(ele in x for ele in BAMBI) == True :
+            brand.append('BAMBI')
+        elif any(ele in x for ele in BELLI_TO_BABY) == True :
+            brand.append('BELLI TO BABY')
+        elif any(ele in x for ele in BONNELS) == True :
+            brand.append('BONNELS')
+        elif any(ele in x for ele in BOTANINA) == True :
+            brand.append('BOTANINA')
+        elif any(ele in x for ele in BUDS) == True :
+            brand.append('BUDS')
+        elif any(ele in x for ele in BYE_BYE_FEVER) == True :
+            brand.append('BYE BYE FEVER')
+        elif any(ele in x for ele in CAHAYA_NATURALS) == True :
+            brand.append('CAHAYA NATURALS')
+        elif any(ele in x for ele in CALADINE) == True :
+            brand.append('CALADINE')
+        elif any(ele in x for ele in CALMY) == True :
+            brand.append('CALMY')
+        elif any(ele in x for ele in CAPLANG) == True :
+            brand.append('CAPLANG')
+        elif any(ele in x for ele in CASA_DI_OLIVIA) == True :
+            brand.append('CASA DI OLIVIA')
+        elif any(ele in x for ele in CERAVE) == True :
+            brand.append('CERAVE')
+        elif any(ele in x for ele in CESSA) == True :
+            brand.append('CESSA')
+        elif any(ele in x for ele in CETAPHIL) == True :
+            brand.append('CETAPHIL')
+        elif any(ele in x for ele in CHIO) == True :
+            brand.append('CHIO')
+        elif any(ele in x for ele in COLGATE) == True :
+            brand.append('COLGATE')
+        elif any(ele in x for ele in CUSSONS) == True :
+            brand.append('CUSSONS')
+        elif any(ele in x for ele in DACCO) == True :
+            brand.append('DACCO')
+        elif any(ele in x for ele in DETTOL) == True :
+            brand.append('DETTOL')
+        elif any(ele in x for ele in DOODLE) == True :
+            brand.append('DOODLE')
+        elif any(ele in x for ele in DOVE) == True :
+            brand.append('DOVE')
+        elif any(ele in x for ele in ESKULIN) == True :
+            brand.append('ESKULIN')
+        elif any(ele in x for ele in FORA) == True :
+            brand.append('FORA')
+        elif any(ele in x for ele in FORMULA) == True :
+            brand.append('FORMULA')
+        elif any(ele in x for ele in GALENIUM) == True :
+            brand.append('GALENIUM')
+        elif any(ele in x for ele in GENTLE_BABY) == True :
+            brand.append('GENTLE BABY')
+        elif any(ele in x for ele in GENTLY) == True :
+            brand.append('GENTLY')
+        elif any(ele in x for ele in GODREJ) == True :
+            brand.append('GODREJ')
+        elif any(ele in x for ele in HAPPY) == True :
+            brand.append('HAPPY')
+        elif any(ele in x for ele in HAPPY_NAPPY) == True :
+            brand.append('HAPPY NAPPY')
+        elif any(ele in x for ele in HEROCYN) == True :
+            brand.append('HEROCYN')
+        elif any(ele in x for ele in HUKI) == True :
+            brand.append('HUKI')
+        elif any(ele in x for ele in JOHNSONS) == True :
+            brand.append("JOHNSON'S")
+        elif any(ele in x for ele in KINO) == True :
+            brand.append("KINO")
+        elif any(ele in x for ele in KLAPU) == True :
+            brand.append("KLAPU")
+        elif any(ele in x for ele in KODOMO) == True :
+            brand.append("KODOMO")
+        elif any(ele in x for ele in KONICARE) == True :
+            brand.append("KONICARE")
+        elif any(ele in x for ele in KUNTOEM) == True :
+            brand.append("KUNTOEM")
+        elif any(ele in x for ele in LACTACYD) == True :
+            brand.append("LACTACYD")
+        elif any(ele in x for ele in LAKOE) == True :
+            brand.append("LAKOE")
+        elif any(ele in x for ele in LUSTY_BUNNY) == True :
+            brand.append("LUSTY BUNNY")
+        elif any(ele in x for ele in MAHARATI) == True :
+            brand.append("MAHARATI")
+        elif any(ele in x for ele in MAMA_MATTEO) == True :
+            brand.append("MAMA MATTEO")
+        elif any(ele in x for ele in MAMAS_CHOICE) == True :
+            brand.append("MAMA'S CHOICE")
+        elif any(ele in x for ele in MAMAMIA) == True :
+            brand.append("MAMAMIA")
+        elif any(ele in x for ele in MAMY_POKO) == True :
+            brand.append("MAMY POKO")
+        elif any(ele in x for ele in MASTER) == True :
+            brand.append("MASTER")
+        elif any(ele in x for ele in MASTER_KIDS) == True :
+            brand.append("MASTER KIDS")
+        elif any(ele in x for ele in MEDISOFT) == True :
+            brand.append("MEDISOFT")
+        elif any(ele in x for ele in MERRIES) == True :
+            brand.append("MERRIES")
+        elif any(ele in x for ele in MITU) == True :
+            brand.append("MITU")
+        elif any(ele in x for ele in MOMAMI) == True :
+            brand.append("MOMAMI")
+        elif any(ele in x for ele in MUSIM) == True :
+            brand.append("MUSIM")
+        elif any(ele in x for ele in MUSTELA) == True :
+            brand.append("MUSTELA")
+        elif any(ele in x for ele in MY_BABY) == True :
+            brand.append("MY BABY")
+        elif any(ele in x for ele in OlAIF) == True :
+            brand.append("OlAIF")
+        elif any(ele in x for ele in OLBAS) == True :
+            brand.append("OLBAS")
+        elif any(ele in x for ele in ORALB) == True :
+            brand.append("ORALB")
+        elif any(ele in x for ele in PASEO) == True :
+            brand.append("PASEO")
+        elif any(ele in x for ele in PEPSODENT) == True :
+            brand.append("PEPSODENT")
+        elif any(ele in x for ele in PHILIPS_AVENT) == True :
+            brand.append("PHILIPS AVENT")
+        elif any(ele in x for ele in PIGEON) == True :
+            brand.append("PIGEON")
+        elif any(ele in x for ele in PURE) == True :
+            brand.append("PURE")
+        elif any(ele in x for ele in PURE_BABY) == True :
+            brand.append("PURE BABY")
+        elif any(ele in x for ele in SANOSAN) == True :
+            brand.append("SANOSAN")
+        elif any(ele in x for ele in SEBAMED) == True :
+            brand.append("SEBAMED")
+        elif any(ele in x for ele in SEJAK) == True :
+            brand.append("SEJAK")
+        elif any(ele in x for ele in SIOMAMA) == True :
+            brand.append("SIOMAMA")
+        elif any(ele in x for ele in SIPOPO) == True :
+            brand.append("SIPOPO")
+        elif any(ele in x for ele in SLEEK) == True :
+            brand.append("SLEEK")
+        elif any(ele in x for ele in SUGAR_BABY) == True :
+            brand.append("SUGAR BABY")
+        elif any(ele in x for ele in SWEETY) == True :
+            brand.append("SWEETY")
+        elif any(ele in x for ele in TEMPOSTORE) == True :
+            brand.append("TEMPOSTORE")
+        elif any(ele in x for ele in TOLAK_ANGIN) == True :
+            brand.append("TOLAK ANGIN")
+        elif any(ele in x for ele in TRESNOJOYO) == True :
+            brand.append("TRESNOJOYO")
+        elif any(ele in x for ele in TROPEEBEBE) == True :
+            brand.append("TROPEEBEBE")
+        elif any(ele in x for ele in ULTRACYN) == True :
+            brand.append("ULTRACYN")
+        elif any(ele in x for ele in UNICHARM) == True :
+            brand.append("UNICHARM")
+        elif any(ele in x for ele in UNILEVER) == True :
+            brand.append("UNILEVER")
+        elif any(ele in x for ele in VASELINE) == True :
+            brand.append("VASELINE")
+        elif any(ele in x for ele in WATSON) == True :
+            brand.append("WATSON")
+        elif any(ele in x for ele in WETKINS) == True :
+            brand.append("WETKINS")
+        elif any(ele in x for ele in WINGS) == True :
+            brand.append("WINGS")
+        elif any(ele in x for ele in ZWITSAL) == True :
+            brand.append("ZWITSAL")
+        elif any(ele in x for ele in BONNIE_BOX) == True :
+            brand.append("BONNIE BOX")
+        elif any(ele in x for ele in NAVILA) == True :
+            brand.append("NAVILA")
+        else:
+            brand.append('OTHER')
+
+    df['Brand'] = brand
+
+    #Making store_type column
+
+    df['store'] = df['store'].apply(str)
+
+    store = df['store'].apply(str.lower)
+
+    A = ['aveeno','aveeno official shop']
+    B = ['babeebabyshop official shop','babyhukiofc','bambi official shop','bambi-baby','belli to baby official shop','bellitobaby','bonnels official store','bonnels-id','bonnet supermarket official store','bonnie box','buds organics','buds-organicsid']
+    C = ['cahaya baru group','cahaya naturals official shop','cahayanaturalsid','calmy','calmy official shop','calmy official store','cap lang official shop','cessa indonesia official shop','cessa official store','cessaindonesia','cetaphil','cetaphil indonesia','cetaphil shop','chio official store','colgatepalmolive','cussons baby & kids care official store','cussons baby & kids care','cussons official shop','cussonsofficial','cussons baby & kids']
+    D = ['dettolstore','doodle official shop']
+    G = ['galenium','galenium official store','gentlebaby','gentlebaby shop','gentlebaby store','gentlebabyid','gentlyindonesia','godrej indonesia official shop','godrej-id']
+    J = ['johnson & johnson official store','johnson & johnson official shop','johnsonnjohnson']
+    K = ['kino official shop','kinoindonesia','kino baby & kids official store','kuntoem','kuntoem official shop']
+    L = ['lakoeindonesia','lakoe indonesia official shop','lakoe indonesia','lusty bunny official store','lusty-bunny','lusty bunny official shop']
+    M = ['mama matteo',"mama's choice official shop",'mama&babybear official store','momami-id','momami official shop','momami official store','mustela indonesia official shop','mustelaindonesia','my baby official shop','my baby indonesia']
+    O = ['olaif','olaif','olaif official store','olbasindonesiaofficial']
+    P = ['pigeonindonesia','paseo official shop','paseotissue','philipsofficialstore','philips official shop','pigeon indonesia official shop','pigeonteensindo','pure official shop','pure official store','pureindonesia']
+    S = ['sanosan official shop','sanosanindonesia','sebamed official shop','sebamed','sleekofficial','sugarbaby-id','sugarbaby official shop','sugar baby']
+    T = ['tempo store official shop','tempostore','tropee bebe official shop','tropeebebeid']
+    U = ['unicharm','unicharm official shop','unilever','unilever indonesia official shop','unilevermall']
+    W = ['wings official shop','wings store','wingsofficial']
+
+    store_type = []
+    for x in store:
+        if any(ele in x for ele in A) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in B) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in C) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in D) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in G) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in J) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in K) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in L) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in M) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in O) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in P) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in S) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in T) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in U) == True :
+            store_type.append('OFFICIAL')
+        elif any(ele in x for ele in W) == True :
+            store_type.append('OFFICIAL')
+        else:
+            store_type.append('UNOFFICIAL')
+
+
+    df['Store type'] = store_type
+    
+    return df
+
+cat_brand_strtype()

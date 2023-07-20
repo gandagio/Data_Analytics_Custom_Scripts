@@ -1,0 +1,120 @@
+#Tokopedia column cleaning and rearranging
+
+import pandas as pd
+
+def tokopedia_clean_column():
+    
+    columns_chosen = ['availableStock','brand','country_code','discount','price','product_name','product_url','increaseinreviewcnt','increaseinsales','reviewCount','store','sold','source','total_sales','week']
+
+    df1 = pd.read_csv(r#Paste file path here)
+    df2 = pd.read_csv(r#Paste file path here)
+    df3 = pd.read_csv(r#Paste file path here)
+    df4 = pd.read_csv(r#Paste file path here)
+
+    df1_new = df1[columns_chosen]
+    df2_new = df2[columns_chosen]
+    df3_new = df3[columns_chosen]
+    df4_new = df4[columns_chosen]
+
+    #Remove duplicates if present
+
+    #week 4
+    df4_new = df4_new.drop_duplicates(subset = 'product_url', keep = 'last')
+
+    #week 1
+    df1_new = df1_new.drop_duplicates(subset = 'product_url', keep = 'last')
+
+    #week 2
+    df2_new = df2_new.drop_duplicates(subset = 'product_url', keep = 'last')
+
+    #week 3
+    df3_new = df3_new.drop_duplicates(subset = 'product_url', keep = 'last')
+
+    #Creating compiled sheet by merging week 4 with the previous weeks
+
+    df_compiled = df4_new.merge(df1_new, how = 'left', on = 'product_url')
+
+    df_compiled['week 4 sold'] = df_compiled['increaseinsales_x']
+    df_compiled['week 4 rev'] = df_compiled['increaseinreviewcnt_x']
+    df_compiled['week 1 sold'] = df_compiled['increaseinsales_y']
+    df_compiled['week 1 rev'] = df_compiled['increaseinreviewcnt_y']
+
+    columns_chosen2 = ['availableStock_x','brand_x','country_code_x','discount_x','price_x','product_name_x','product_url','reviewCount_x','store_x','sold_x','source_x','total_sales_x','week_x','week 1 sold','week 4 sold','week 1 rev','week 4 rev']
+
+    df_compiled = df_compiled[columns_chosen2]
+
+    df_compiled2 = df_compiled.merge(df2_new, how = 'left', on = 'product_url')
+
+    df_compiled2['week 2 sold'] = df_compiled2['increaseinsales']
+    df_compiled2['week 2 rev'] = df_compiled2['increaseinreviewcnt']
+
+    columns_chosen3 = ['availableStock_x','brand_x','country_code_x','discount_x','price_x','product_name_x','product_url','reviewCount_x','store_x','sold_x','source_x','total_sales_x','week_x','week 1 sold','week 2 sold','week 4 sold','week 1 rev','week 2 rev','week 4 rev']
+
+    df_compiled2 = df_compiled2[columns_chosen3]
+
+    df_compiled3 = df_compiled2.merge(df3_new, how = 'left', on = 'product_url')
+
+    df_compiled3['week 3 sold'] = df_compiled3['increaseinsales']
+    df_compiled3['week 3 rev'] = df_compiled3['increaseinreviewcnt']
+
+    columns_chosen4 = ['availableStock_x','brand_x','country_code_x','discount_x','price_x','product_name_x','product_url','reviewCount_x','store_x','sold_x','source_x','total_sales_x','week_x','week 1 sold','week 2 sold','week 3 sold','week 4 sold','week 1 rev','week 2 rev','week 3 rev','week 4 rev']
+
+    df_compiled3 = df_compiled3[columns_chosen4]
+
+    #Finding missing products from the 1st week sheet
+
+    df1_missing = df1_new.merge(df_compiled3, on='product_url', how="outer", indicator = True)
+
+    df1_missing = df1_missing[df1_missing['_merge'] == 'left_only']
+
+    df1_missing_new = df1_missing.drop(['availableStock_x','brand_x','country_code_x','discount_x','price_x','product_name_x','reviewCount_x','store_x','sold_x','source_x','total_sales_x','week_x','week 1 sold','week 2 sold','week 3 sold','week 4 sold','week 1 rev','week 2 rev','week 3 rev','week 4 rev','_merge'], axis = 1)
+
+    df1_missing_new.rename(columns = {'increaseinsales' : 'week 1 sold', 'increaseinreviewcnt' : 'week 1 rev'}, inplace = True)
+
+    #Merging the missing products with the 2nd and 3rd week df's to get the week sold and week rev values
+
+    df2_new_missingonly = df2_new.drop(['availableStock','brand','country_code','discount','price','product_name','reviewCount','store','sold','source','total_sales','week'], axis = 1)
+    df2_new_missingonly.rename(columns = {'increaseinsales' : 'week 2 sold', 'increaseinreviewcnt' : 'week 2 rev'}, inplace = True)
+
+    df3_new_missingonly = df3_new.drop(['availableStock','brand','country_code','discount','price','product_name','reviewCount','store','sold','source','total_sales','week'], axis = 1)
+    df3_new_missingonly.rename(columns = {'increaseinsales' : 'week 3 sold', 'increaseinreviewcnt' : 'week 3 rev'}, inplace = True)
+
+    df1_missing_new_merged = (df1_missing_new.merge(df2_new_missingonly, on = 'product_url', how = 'left')).merge(df3_new_missingonly, on = 'product_url', how = 'left')
+
+    #Rearranging the columns
+
+    columns_for_df1_missing_new_merged = ['availableStock','brand','country_code','discount','price','product_name','product_url','reviewCount','store','sold','source','total_sales','week','week 1 sold','week 2 sold','week 3 sold','week 1 rev','week 2 rev','week 3 rev']
+
+    df1_missing_new_merged = df1_missing_new_merged[columns_for_df1_missing_new_merged]
+
+    #Cleaning column titles (removing the _x) for df_3 compiled
+
+    df_compiled3.rename(columns = {'availableStock_x' : 'availableStock', 'brand_x' : 'brand', 'country_code_x' : 'country_code', 'discount_x' : 'discount', 'price_x' : 'price', 'product_name_x' : 'product_name', 'reviewCount_x' : 'reviewCount', 'store_x' : 'store', 'sold_x' : 'sold', 'source_x' : 'source', 'total_sales_x' : 'total_sales', 'week_x' : 'week'}, inplace = True)
+
+    #Concatenate df_compiled3 with df1_missing_new_merged
+
+    df_compiled3_merged = pd.concat([df_compiled3, df1_missing_new_merged])
+
+    #Create delta sold, delta rev count and sales columns
+
+    delta_sold = df_compiled3_merged.iloc[:, 13:17].sum(axis=1)
+    delta_rev = df_compiled3_merged.iloc[:, 17:21].sum(axis=1)
+
+    df_compiled3_merged['delta sold'] = delta_sold
+    df_compiled3_merged['delta rev'] = delta_rev
+
+    df_compiled3_merged['sales'] = df_compiled3_merged['delta sold']*df_compiled3_merged['price']
+
+    #Rearrange columns to make final sheet
+
+    final_columns = ['availableStock','brand','country_code','discount','price','product_name','product_url','reviewCount','store','sold','source','total_sales','week','week 1 sold','week 2 sold','week 3 sold','week 4 sold','delta sold','week 1 rev','week 2 rev','week 3 rev','week 4 rev','delta rev','sales']
+
+    final_compiled_sheet = df_compiled3_merged[final_columns]
+    
+    return(final_compiled_sheet)
+
+tokopedia_clean_column()
+
+
+#Save final_compiled_sheet file to a specified folder
+tokopedia_clean_column().to_csv('\\Users\\giova\\OneDrive\\Desktop\\parfumandcologne_compiled.csv', index = False)

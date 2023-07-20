@@ -1,0 +1,85 @@
+# Script 1.. Find numbers that match with the range and average of CTR + sessions rate to get the impressions + clicks later
+
+import random
+import pandas as pd
+
+def generate_random_numbers(count, minimum, maximum, average, tolerance=0.0001):
+    numbers = []
+
+    while True:
+        # Generate random decimal numbers within the given range
+        numbers = [random.uniform(minimum, maximum) for _ in range(count)]
+
+        # Check if all numbers are within the range
+        if all(minimum <= number <= maximum for number in numbers):
+            # Calculate the current average
+            current_average = sum(numbers) / count
+
+            # Check if the current average is within the desired tolerance
+            if abs(current_average - average) <= tolerance:
+                break
+
+    return numbers
+
+
+
+#How many outputs?
+outputs = int(input("Enter how many entries you want to make : "))
+
+#Entering the range for CTR
+CTR_low = float(input("Enter lower range for CTR (%) : "))
+CTR_high = float(input("Enter upper range for CTR (%) : "))
+CTR_avg = float(input("Enter the average of CTR (%) : "))
+
+random_CTR = generate_random_numbers(outputs, CTR_low, CTR_high, CTR_avg)
+
+#Entering the range for sessions rate
+sessions_low = float(input("Enter lower range for Sessions Rate (%) : "))
+sessions_high = float(input("Enter upper range for Sessions Rate (%) : "))
+sessions_avg = float(input("Enter the average of Sessions Rate (%) : "))
+
+random_session = generate_random_numbers(outputs, sessions_low, sessions_high, sessions_avg)
+
+data = {'CTR' : random_CTR, 'Sessions Rate' : random_session}
+
+df = pd.DataFrame(data = data)
+
+df['CTR'] = df['CTR'] / 100
+df['Sessions Rate'] = df['Sessions Rate'] / 100
+
+df
+
+
+#Script 2.. Generating impressions and clicks using random CTRS based off a range given and conversions 
+
+def generate_random_CTR(count, minimum, maximum):
+    #Generate random CTR with specified intervals
+    numbers = [random.uniform(minimum, maximum) for _ in range(count)]
+    
+    return numbers
+
+#Entering conversions
+conversions = input("Enter all the conversions: ").split()
+
+# Convert conversions to integers
+conversions = [int(conv) for conv in conversions]
+
+#Entering the range for CTR
+CTR_low = float(input("Enter lower range for CTR (%) : "))
+CTR_high = float(input("Enter upper range for CTR (%) : "))
+
+random_CTR = generate_random_CTR(len(conversions), CTR_low, CTR_high)
+
+data = {'CTR' : random_CTR, 'Conversions' : conversions}
+
+df = pd.DataFrame(data = data)
+
+df['CTR'] = df['CTR'] / 100
+
+# Randomize the number of clicks for each row
+df['Clicks'] = df['Conversions'].apply(lambda x: x / random.uniform(0.2, 0.7))
+
+df['Impressions'] = df['Clicks'] / df['CTR']
+
+df = df[['Impressions', 'Clicks', 'CTR', 'Conversions']]
+df

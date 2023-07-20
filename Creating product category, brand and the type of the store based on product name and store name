@@ -397,3 +397,7 @@ def cat_brand_strtype():
     return df
 
 cat_brand_strtype()
+
+
+#Save final_compiled_sheet file to a specified folder
+cat_brand_strtype().to_csv('\\Users\\giova\\OneDrive\\Desktop\\parfumandcologne_compiled_complete.csv', index = False)
